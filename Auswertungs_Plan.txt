@@ -1,0 +1,101 @@
+1. Plotten der Messreihen
+
+Darstellung aller sechs Messreihen in einem gemeinsamen Diagramm. (also subplots also zwei plots mit drei subplots)
+
+Angabe von Fehlerbalken für Zeit und Amplitude.
+
+Getrennte Varianten:
+
+ohne Pendelkörper
+
+mit Pendelkörper
+
+---
+
+2. Peakerkennung und Regression
+
+Ermittlung der Peaks mit scipy.signal.find_peaks().
+
+Für jede Messreihe: lineare Regression der Peakpositionen zur Bestimmung der Periodendauer .
+
+Gemeinsame Darstellung aller Peaks und Fits in einem Plot mit fehler 10 ms.  (also subplots also zwei plots mit drei subplots)
+
+Anzeige der Residuen und des Chi-Quadrats unterhalb der Fits.
+
+Benennung der Anpassungen nach ihren werten (z. B. „ax + b“).
+
+---
+
+3. Vergleich der Messreihen
+
+Berechnung des (gewichteten) Mittelwerts der Periodendauern.
+
+Vergleich der Messreihen mit und ohne Pendelkörper:
+
+über Division der Perioden
+
+über Phasenverschiebung der Zeitreihen
+
+Überprüfung, ob beide Varianten hinreichend übereinstimmen.
+
+---
+
+4. Tabellarische Darstellung
+
+Alle relevanten Ergebnisse werden tabellarisch zusammengefasst.
+Die Tabelle enthält pro Messreihe folgende Angaben:
+
+Messreihe Pendelkörper Periodendauer [s] Unsicherheit [s] Länge [m] Berechnetes [m/s²] Güte der Messung Bemerkungen [chi/f]
+
+Güte der Anpassung einschätzen: Wird über die Fit-Parameter (Chi-Quadrat) und beurteilt und über ein zufällig verteiltes residoum
+
+---
+
+5. Mathematische Analyse
+
+Berechnung der maximalen Auslenkung unter Anwendung der Kleinwinkelnäherung.
+
+Definition und Messung der relevanten Pendelparameter l und r.
+
+Berechnung von g 
+
+---
+
+6. Unsicherheiten
+
+Bestimmung der Unsicherheiten von  l und r. 
+
+Berücksichtigung systematischer Unsicherheiten (Der Messinstrumente).
+
+Ziel-Fehlergrenzen: insgesamt unter 0,01, für l unter 0,5 mm, für r unter 1 cm  
+
+Fehlerfortpflanzung absolut und relativ (Die Größte und kleinste Fehler quelle finden wird T und r sein)
+
+
+---
+
+7. Vergleich mit Literaturwerten
+
+Darstellung des Literaturwerts von im Histogramm mit Fehlerbalken.
+
+Vergleich mit dem experimentellen Ergebnis (inkl. Unsicherheiten).
+
+Berechnung:
+
+Abweichung in Sigma
+
+relative Abweichung
+
+
+---
+
+
+Zusatz. Fallback-Methoden bei unzureichender Anpassungsgüte
+
+Bootstrap-Resampling zur robusten Schätzung der Unsicherheiten von .
+
+Quadratische Fits um Maxima/Minima zur sub-sampling-Interpolation der Peakpositionen.
+
+Einsatz dieser Methoden bei unzureichender Fit-Güte (z. B. ).
+
+
