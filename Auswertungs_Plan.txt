@@ -1,14 +1,6 @@
 1. Plotten der Messreihen
 
-Darstellung aller sechs Messreihen in einem gemeinsamen Diagramm. (also subplots also zwei plots mit drei subplots)
-
-Angabe von Fehlerbalken für Zeit und Amplitude.
-
-Getrennte Varianten:
-
-ohne Pendelkörper
-
-mit Pendelkörper
+Darstellung aller sechs Messreihen in einem gemeinsamen Diagramm. (subplots also zwei plots mit drei subplots)
 
 ---
 
@@ -18,9 +10,9 @@ Ermittlung der Peaks mit scipy.signal.find_peaks().
 
 Für jede Messreihe: lineare Regression der Peakpositionen zur Bestimmung der Periodendauer .
 
-Gemeinsame Darstellung aller Peaks und Fits in einem Plot mit fehler 10 ms.  (also subplots also zwei plots mit drei subplots)
+Gemeinsame Darstellung aller Peaks und Fits in einem Plot mit fehler 10 ms.  (subplots also zwei plots mit drei subplots)
 
-Anzeige der Residuen und des Chi-Quadrats unterhalb der Fits.
+Anzeige der Residuen und des Chi-Quadrats/Güte unterhalb der Fits.
 
 Benennung der Anpassungen nach ihren werten (z. B. „ax + b“).
 
@@ -34,7 +26,7 @@ Vergleich der Messreihen mit und ohne Pendelkörper:
 
 über Division der Perioden
 
-über Phasenverschiebung der Zeitreihen
+über Phasenverschiebung der Zeitreihen als Plot
 
 Überprüfung, ob beide Varianten hinreichend übereinstimmen.
 
@@ -45,7 +37,7 @@ Vergleich der Messreihen mit und ohne Pendelkörper:
 Alle relevanten Ergebnisse werden tabellarisch zusammengefasst.
 Die Tabelle enthält pro Messreihe folgende Angaben:
 
-Messreihe Pendelkörper Periodendauer [s] Unsicherheit [s] Länge [m] Berechnetes [m/s²] Güte der Messung Bemerkungen [chi/f]
+Messreihe Pendelkörper Periodendauer [s] Unsicherheit [s] Länge [m] Berechnetes [m/s²] ch^2 [cji^2]  Güte der Messung [chi^2/f]
 
 Güte der Anpassung einschätzen: Wird über die Fit-Parameter (Chi-Quadrat) und beurteilt und über ein zufällig verteiltes residoum
 
@@ -69,14 +61,13 @@ Berücksichtigung systematischer Unsicherheiten (Der Messinstrumente).
 
 Ziel-Fehlergrenzen: insgesamt unter 0,01, für l unter 0,5 mm, für r unter 1 cm  
 
-Fehlerfortpflanzung absolut und relativ (Die Größte und kleinste Fehler quelle finden wird T und r sein)
-
+Fehlerfortpflanzung absolut und relativ (Die Größte und kleinste Fehler quelle finden wird T und r sein) [kontrolle mit ufloat]
 
 ---
 
 7. Vergleich mit Literaturwerten
 
-Darstellung des Literaturwerts von im Histogramm mit Fehlerbalken.
+Darstellung des Literaturwerts von g zusammen mit meinem wert  im Histogramm (vielleicht auch fehlerbalken).
 
 Vergleich mit dem experimentellen Ergebnis (inkl. Unsicherheiten).
 
@@ -97,5 +88,6 @@ Bootstrap-Resampling zur robusten Schätzung der Unsicherheiten von .
 Quadratische Fits um Maxima/Minima zur sub-sampling-Interpolation der Peakpositionen.
 
 Einsatz dieser Methoden bei unzureichender Fit-Güte (z. B. ).
+
 
 
