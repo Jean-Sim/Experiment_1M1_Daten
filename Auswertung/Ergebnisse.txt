@@ -36,7 +36,7 @@ Chi^2|Chi^2/dof|dof
 (np.float64(106.522), np.float64(1.005), 106)
 Wahrer t_error: 5.5*t_error_fit
 
-Pendel_Körper 1:
+Pendel_Körper 2:
 Peaks: 109
 Slope (a): 1.65529191 ± 6.3e-06
 Intercept (b): -0.723064 ± 0.000396
@@ -45,7 +45,7 @@ Chi^2|Chi^2/dof|dof
 (np.float64(109.99), np.float64(1.028), 107)
 Wahrer t_error: 1.7*t_error_fit
 
-Pendel_Körper 1:
+Pendel_Körper 3:
 Peaks: 109
 Slope (a): 1.65515437 ± 7.2e-06
 Intercept (b): 0.212596 ± 0.000398
