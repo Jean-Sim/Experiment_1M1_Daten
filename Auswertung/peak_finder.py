@@ -41,18 +41,16 @@ def bootstrap_tpeak(idx_peak, data, n_boot=300):
     t_peaks_boot = []
 
     for _ in range(n_boot):
-        # Resample residuals with replacement
         resampled_resid = np.random.choice(residuals, size=len(residuals), replace=True)
         U_boot = cos(t_segment, *params_fit) + resampled_resid
 
-        # Fit bootstrap sample
         try:
             params_b, _ = curve_fit(cos, t_segment, U_boot, p0=params_fit)
             t_peaks_boot.append(params_b[2])
         except Exception:
-            # If fit fails, skip this bootstrap iteration
             continue
 
     t_peaks_boot = np.array(t_peaks_boot)
     sigma_t_boot = np.std(t_peaks_boot)
+
     return sigma_t_boot, np.mean(t_peaks_boot)
