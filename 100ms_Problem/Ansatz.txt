@@ -1,6 +1,6 @@
 Anstelle einer Konservativen abschätzung des Fehler von sigma_t = delta_t/2 oder sigma_t = delta_t/sqrt(12) führen wir ein lokalen sinus fit aus
 Schritt 1: Wir finden einen peak
 Schritt 2: Wir nehmen die fünf letzten und fünffolgenden werte des peaks und machen einen sinus fit
-Schritt 3: Wir berechnen den peak des sinus fits und seine unsicherheiten sigma_t = sqrt((dxdB**2)*cov[1,1] + (dxdC**2)*cov[2,2] + 2*dxdB*dxdC*cov[1,2]) (Fehlerfortpflanzung auf t_peak = ((pi/2)-phasenverschiebung)/winkelgeschwindichkeit)
-Schritt 4: Vielleicht muss noch ein residuum bootstrap angewandt werden
+Schritt 3: Wir berechnen den peak des sinus fits und seine unsicherheiten sigma_t= 0.0008s = sqrt((dxdB**2)*cov[1,1] + (dxdC**2)*cov[2,2] + 2*dxdB*dxdC*cov[1,2]) (Fehlerfortpflanzung auf t_peak = ((pi/2)-phasenverschiebung)/winkelgeschwindichkeit)
+Schritt 4: Vielleicht muss noch ein residuum bootstrap angewandt werden um den Fehler noch mal zu verringern
 Schritt 5: Auf den gesamten Datensatz anwenden anwenden
