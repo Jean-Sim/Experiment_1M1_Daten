@@ -25,7 +25,7 @@ Intercept (b): -0.655697 ± 0.000975
 {'within_1σ': (np.int64(92), np.float64(0.844)), 'within_2σ': (np.int64(106), np.float64(0.972)), 'within_3σ': (np.int64(108), np.float64(0.991))}
 Chi^2|Chi^2/dof|dof
 (np.float64(116.405), np.float64(1.088), 107)
-Wahrer t_error: 4.5*t_error_fit
+Wahrer t_error: 4*t_error_fit
 
 Pendel_Körper 1:
 Peaks: 108
