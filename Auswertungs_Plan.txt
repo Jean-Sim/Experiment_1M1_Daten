@@ -1,10 +1,10 @@
-1. Plotten der Messreihen
+1. Plotten der Messreihen -
 
 Darstellung aller sechs Messreihen in einem gemeinsamen Diagramm. (subplots also zwei plots mit drei subplots)
 
 ---
 
-2. Peakerkennung und Regression
+2. Peakerkennung und Regression -
 
 Ermittlung der Peaks mit scipy.signal.find_peaks().
 
@@ -18,7 +18,7 @@ Benennung der Anpassungen nach ihren werten (z. B. „ax + b“).
 
 ---
 
-3. Vergleich der Messreihen
+3. Vergleich der Messreihen -
 
 Berechnung des (gewichteten) Mittelwerts der Periodendauern.
 
@@ -32,12 +32,12 @@ Vergleich der Messreihen mit und ohne Pendelkörper:
 
 ---
 
-4. Tabellarische Darstellung
+4. Tabellarische Darstellung -
 
 Alle relevanten Ergebnisse werden tabellarisch zusammengefasst.
 Die Tabelle enthält pro Messreihe folgende Angaben:
 
-Messreihe Pendelkörper Periodendauer [s] Unsicherheit [s] Länge [m] Berechnetes [m/s²] ch^2 [cji^2]  Güte der Messung [chi^2/f]
+Messreihe Pendelkörper Periodendauer [s] Unsicherheit [s] ch^2 [cji^2]  Güte der Messung [chi^2/f]
 
 Güte der Anpassung einschätzen: Wird über die Fit-Parameter (Chi-Quadrat) und beurteilt und über ein zufällig verteiltes residoum
 
@@ -88,6 +88,7 @@ Bootstrap-Resampling zur robusten Schätzung der Unsicherheiten von .
 Quadratische Fits um Maxima/Minima zur sub-sampling-Interpolation der Peakpositionen.
 
 Einsatz dieser Methoden bei unzureichender Fit-Güte (z. B. ).
+
 
 
 
