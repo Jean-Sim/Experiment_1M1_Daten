@@ -4,7 +4,7 @@ Darstellung aller sechs Messreihen in einem gemeinsamen Diagramm. (subplots also
 
 ---
 
-2. Peakerkennung und Regression -
+2. Peakerkennung und Regression - Wichtig rechtvertigung für fernachlässigung des U Fehlers
 
 Ermittlung der Peaks mit scipy.signal.find_peaks().
 
@@ -88,6 +88,7 @@ Bootstrap-Resampling zur robusten Schätzung der Unsicherheiten von .
 Quadratische Fits um Maxima/Minima zur sub-sampling-Interpolation der Peakpositionen.
 
 Einsatz dieser Methoden bei unzureichender Fit-Güte (z. B. ).
+
 
 
 
