@@ -54,11 +54,22 @@ Chi^2|Chi^2/dof|dof
 (np.float64(103.975), np.float64(0.981), 106)
 Wahrer t_error: 1.8*t_error_fit
 
-
-####### Wichtig #######
-Messung 1 scheint eienen Fehler zu haben siehe residuum. Der Systematiche fehler ist Wahrschein Experimental und nicht Auswertungs bedingt das er nicht in den anderen messungen vorkommt obwohl er auch ganz leicht in 4,5 und sechs zu sehen ist. Die Quelle diese Fehlers muss nocht herrausgefunden werden.
+gewichtete Mittelwerte und Fehler:
+t ohne pendelkörper t= 1.656742, sigma = 7.7e-06
+t mit pendelkörper t=  1.655316, sigma = 4.5e-06
 
 Vergleich:
-(t_Pendek_Körper_1 + t_Pendek_Körper_2 + t_Pendek_Körper_3) / (t_nur_Stange_1 + t_nur_Stange_2 + t_nur_Stange_3) = 0.9993 = 0.03 % 
+1 - (t_Pendel_Körper) / (t_nur_Stange) = 0.00086 = 0.086 %
+bilder
 
-Fehler Zusammen Fügen
+Tabelle:
+bilder
+
+Unsicherheiten und werte:
+l1 = [60.9,61,60.85] , sigma = [0.05,0.07] =>
+l2 = [3.12,3.3,3.32], sigma = [0.005]      =>
+r = [4.05,4,4.05], sigma = [0.005]         =>
+lg = 
+t = 1.655316, sigma = 4.5e-06
+
+
