@@ -66,10 +66,11 @@ Tabelle:
 bilder
 
 Unsicherheiten und werte:
-l1 = [60.9,61,60.85] , sigma = [0.05,0.07] =>
-l2 = [3.12,3.3,3.32], sigma = [0.005]      =>
-r = [4.05,4,4.05], sigma = [0.005]         =>
-lg = 
+l1 = [60.9,61,60.85] , sigma = [0.05,0.07]       => l1 = 60.92 cm sigma = 0.076 cm
+l2 = [3.12,3.3,3.32], sigma = [0.005,0.005]      => l2 = 3.247 cm sigma = 0.0029 cm
+r = [4.05,4,4.05], sigma = [0.005, 0.005]        => r = 4.033 cm sigma = 0.0029 cm
+l2 + r = 7.28 cm, sigma = 0.0064 cm
+lg = 68.2 cm , sigma = 0.076 cm
 t = 1.655316, sigma = 4.5e-06
 
 
