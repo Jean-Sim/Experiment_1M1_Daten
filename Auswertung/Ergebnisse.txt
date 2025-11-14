@@ -73,7 +73,7 @@ l2 + r = 7.28 cm, sigma = 0.0064 cm
 lg = 68.2 cm , sigma = 0.076 cm
 t = 1.655316, sigma = 4.5e-06
 
-g = omega**2 *l *(1 + (1/2)*r**2/l**2)
+g = omega**2 *l *(1 + (1/2)*r**2/l**2) = 9.843 m/s^2, sigma = 0.011
 (dg/dt * sigma_t) = -(8*pi**2 * lg)/t**3 * (1 + (1/2) * r**2/lg**2) * sigma_t = -11.9398 * sigma_t
 (dg/dlg * sigma_lg) = (4*pi**2)/t**2 * (1 - (1/2) * r**2/lg**2) * simga_lg =  14.3257 * sigma_lg
 (dg/dr) = (4*pi**2)/t**2 *  r/lg * sigma_r = 1.5370 * sigma_r
