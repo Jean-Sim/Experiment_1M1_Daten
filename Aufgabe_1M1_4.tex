@@ -1,0 +1,314 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,siunitx,graphicx,physics}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{font=small}
+\begin{document}
+
+\section*{Auswertung der Messreihen und Bestimmung der Fallbeschleunigung}
+
+Die sechs Messreihen bestehen aus sinusförmig angeordneten Spannungswerten über einen Zeitraum von \SI{180}{s}. Um die Periodendauer herauszufinden, identifizieren wir zunächst mithilfe von \texttt{scipy.signal.find\_peaks} die lokalen Maxima des Datensatzes. Nach visueller Überprüfung, dass keine Messfehler zu falschen Peaks geführt haben, führen wir einen lokalen Kosinus-Fit durch, um die Genauigkeit der Peakerkennung zu erhöhen. 
+
+Hierzu extrahieren wir den durch \texttt{scipy.signal.find\_peaks} gefundenen Peak sowie die vier vorherigen und vier folgenden Datenpunkte und führen auf diesem Subdatensatz einen Fit der Form
+\[
+f(x) = A\cos\!\bigl(B\,(x - t_{\text{peak}})\bigr) + D
+\]
+mit Hilfe von \texttt{scipy.optimize.curve\_fit} durch. Dabei sind der gefundene Wert $t_{\text{peak}}$ und dessen Unsicherheit $\sigma_{t_{\text{peak}}}$ unsere verbesserte Abschätzung der wahren Peaks des Datensatzes (siehe \texttt{peak\_finder.py}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.75]{cos_fit_example_small.png}
+\caption{Lokaler Kosinus-Fit für eine Periode}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.75]{cos_fit_example_zoom.png}
+\caption{Lokaler Kosinus-Fit nahe dem Datensatzpeak}
+\end{figure}
+
+Nachdem wir die Peaks für die sechs Datensätze jeweils $n$ individuelle Peaks samt ihrer individuellen Unsicherheiten gefunden haben, wenden wir lineare Regression an, um die Steigung zu bestimmen, welche der Periodendauer entspricht. Die Regression erfolgt mit \texttt{scipy.optimize.curve\_fit} und der Funktion
+\[
+f(x) = a x + b.
+\]
+
+Da die durch die Kosinus-Fits bestimmten Unsicherheiten sehr optimistisch sind und somit wahrscheinlich den Fehler unterschätzen, führen wir zwei lineare Regressionen durch: Zunächst die Regression mit den direkten Unsicherheiten der Peaks, welche ein deutlich größeres $\chi^2/\mathrm{dof}$ als 1 ergibt. Anschließend skalieren wir die Unsicherheiten der Peaks mit dem Faktor $\sqrt{\chi^2/\mathrm{dof}}$ und führen die Regression erneut durch; so erhält die zweite Regression ein $\chi^2/\mathrm{dof}$, das wesentlich näher an 1 liegt (siehe \texttt{linear\_regression.py}).
+
+\begin{figure}[H]\centering
+\includegraphics[scale=.41]{nur_Stange_3_small.png}
+\caption{Lineare Regression Messung 1 ohne Pendelkörper: $\chi^2 = 109.352$, $\chi^2/\mathrm{dof} = 1.022$}
+\end{figure}
+
+\begin{figure}[H]\centering
+\includegraphics[scale=.41]{Pendel_Körper_1_small.png}
+\caption{Lineare Regression Messung 2 ohne Pendelkörper: $\chi^2 = 105.649$, $\chi^2/\mathrm{dof} = 0.997$}
+\end{figure}
+
+\begin{figure}[H]\centering
+\includegraphics[scale=.41]{nur_Stange_3_small.png}
+\caption{Lineare Regression Messung 3 ohne Pendelkörper: $\chi^2 = 110.796$, $\chi^2/\mathrm{dof} = 1.035$}
+\end{figure}
+
+\begin{figure}[H]\centering
+\includegraphics[scale=.41]{Pendel_Körper_1_small.png}
+\caption{Lineare Regression Messung 4 mit Pendelkörper: $\chi^2 = 106.522$, $\chi^2/\mathrm{dof} = 1.005$}
+\end{figure}
+
+\begin{figure}[H]\centering
+\includegraphics[scale=.41]{Pendel_Körper_2_small.png}
+\caption{Lineare Regression Messung 5 mit Pendelkörper: $\chi^2 = 109.99$, $\chi^2/\mathrm{dof} = 1.028$}
+\end{figure}
+
+\begin{figure}[H]\centering
+\includegraphics[scale=.41]{Pendel_Körper_3_small.png}
+\caption{Lineare Regression Messung 6 mit Pendelkörper: $\chi^2 = 103.975$, $\chi^2/\mathrm{dof} = 0.981$}
+\end{figure}
+
+In den Residuen der Anpassungen sind teilweise gewisse Auffälligkeiten zu beobachten: Die Residuen zeigen teilweise eine gekrümmte Struktur, sie sind zunächst klein bzw. negativ, steigen dann bis zu einem Maximum an und fallen wieder ab. Da dieser Trend nicht in allen Messungen auftritt, ist davon auszugehen, dass die Ursache nicht in der Auswertungsmethodik liegt, sondern höchstwahrscheinlich an möglichen Umwelteinflüssen oder systematischen Fehlern (z.\,B. einem kleinen Anschub zu Beginn der Messung) liegt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.75]{Tabelle_small.png}
+\caption{Tabelle der Anpassungswerte}
+\end{figure}
+
+\bigskip
+
+Nun, da wir durch die lineare Regression Werte für die Perioden und deren Unsicherheiten erhalten haben, fassen wir diese mittels gewichteter Mittelwerte zusammen.
+
+\subsection*{Messungen ohne Pendelkörper}
+
+\[
+t_1 = 1.656686 \pm 0.000012\ \text{s}
+\]
+\[
+t_2 = 1.656840 \pm 0.000012\ \text{s}
+\]
+\[
+t_3 = 1.656648 \pm 0.000018\ \text{s}
+\]
+
+Der gewichtete Mittelwert berechnet sich zu
+\[
+t_{\mathrm{gew},1} \;=\; \frac{\sum_n t_n/\sigma_n^2}{\sum_n 1/\sigma_n^2}
+\;=\; 1.656742\ \text{s},
+\]
+mit
+\[
+\sigma_{t,1} \;=\; \sqrt{\frac{1}{\sum_n 1/\sigma_n^2}} \;=\; 7.7\times 10^{-6}\ \text{s}.
+\]
+
+\subsection*{Messungen mit Pendelkörper}
+
+\[
+t_1 = 1.656151 \pm 0.000015\ \text{s}
+\]
+\[
+t_2 = 1.655292 \pm 0.0000063\ \text{s}
+\]
+\[
+t_3 = 1.655154 \pm 0.0000072\ \text{s}
+\]
+
+\[
+t_{\mathrm{gew},2} \;=\; 1.655742\ \text{s}, \qquad 
+\sigma_{t,2} \;=\; 4.5\times 10^{-6}\ \text{s}.
+\]
+
+Die relative Abweichung der gewichteten Mittelwerte beträgt
+\[
+1 - \frac{t_{\mathrm{gew},2}}{t_{\mathrm{gew},1}} = 0.00086 = 0.086\%.
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.5]{Pendel_Zeitverschiebung.png}
+\caption{Zeitliche Verschiebung zwischen dem Pendel mit und ohne Pendelkörper}
+\end{figure}
+
+\medskip
+
+Um den Abstand des Pendelkörpers zu bestimmen, wurden drei Messungen von jeweils drei Abständen durchgeführt: $l_1$ wurde mit einem Maßband gemessen, $l_2$ und der Radius $r$ mit einem Messschieber.
+\vspace{\baselineskip}
+Die gemessenen Mittelwerte sind:
+\[
+l_1 = \frac{60.9 + 61.0 + 60.85}{3} = 60.92\ \text{cm},
+\]
+\[
+l_2 = \frac{3.12 + 3.30 + 3.32}{3} = 3.247\ \text{cm},
+\]
+\[
+r = \frac{4.05 + 4.00 + 4.05}{3} = 4.033\ \text{cm}.
+\]
+\vspace{\baselineskip}
+
+Auf $l_1$ schätzen wir die Ablesegenauigkeit auf \SI{0.05}{cm}; das Maßband hat laut Hersteller eine Toleranz von \SI{0.07}{cm}. Wir gehen hier von einer Gleichverteilung der Ablesefehler aus. Somit setzen wir
+\[
+\sigma_{l_1} = \sqrt{\left(\frac{0.05}{\sqrt{3}}\right)^{2} + \left(\frac{0.07}{\sqrt{3}}\right)^{2}} \approx 0.05\ \text{cm}.
+\]
+\vspace{\baselineskip}
+
+Für $l_2$ und $r$ schätzen wir die Ablesegenauigkeit auf \SI{0.005}{cm}; der Messschieber hat laut Hersteller eine Toleranz von \SI{0.005}{cm}. Für die kombinierte Unsicherheit verwenden wir eine konservative Abschätzung:
+\[
+\sigma_{r_p} = \sqrt{\left(\frac{0.005}{\sqrt{3}}\right)^{2} + 0.005^{2}} \approx 0.0029\ \text{cm},
+\]
+\[
+\sigma_{l_2r} = \sqrt{2\left(\frac{0.005}{\sqrt{3}}\right)^{2} + 0.005^{2}} \approx 0.0064\ \text{cm}.
+\]
+\vspace{\baselineskip}
+
+Die kombinierte Länge ergibt sich zu
+\[
+l_p = l_1 + l_2 + r = 60.92 + 3.247 + 4.033 = 68.20\ \text{cm},
+\]
+mit
+\[
+\sigma_{l_p} = \sqrt{\sigma_{l_1}^{2} + \sigma_{l_2r}^{2}} \approx 0.050\ \text{cm}.
+\]
+\vspace{\baselineskip}
+
+Damit haben wir alle nötigen Werte, um die Fallbeschleunigung $g$ zu berechnen. Aus der Bedingung übereinstimmender Perioden mit und ohne Pendelkörper ergibt sich (für die hier verwendete Modellannahme)
+
+\[
+g \;=\; \left(\frac{2\pi}{t_{\mathrm{gew},2}}\right)^{2} \, l_p \left(1 + \frac{1}{2}\frac{r_p^{2}}{l_p^{2}}\right).
+\]
+
+Einsetzen liefert
+\[
+g = 9.843 \pm 0.0072\ \text{m/s}^2.
+\]
+\vspace{\baselineskip}
+
+\subsection*{Fehlerfortpflanzung}
+
+Für
+\[
+g = \left(\frac{4\pi^{2}}{t^{2}}\right) l \left(1 + \frac{1}{2}\frac{r^{2}}{l^{2}}\right)
+\]
+mit $t = t_{\mathrm{gew},2}$, $l = l_p$ und $r = r_p$ berechnen sich die partiellen Ableitungen zu:
+
+\[
+\frac{\partial g}{\partial t} = -\frac{8\pi^{2} l}{t^{3}} \left(1 + \frac{1}{2}\frac{r^{2}}{l^{2}}\right),
+\]
+
+\[
+\frac{\partial g}{\partial l} = \frac{4\pi^{2}}{t^{2}} \left(1 - \frac{1}{2}\frac{r^{2}}{l^{2}}\right),
+\]
+
+\[
+\frac{\partial g}{\partial r} = \frac{4\pi^{2}}{t^{2}} \frac{r}{l}.
+\]
+\vspace{\baselineskip}
+
+Die Beiträge zum Fehler sind damit:
+
+\[
+\left(\frac{\partial g}{\partial t}\sigma_{t}\right),\qquad
+\left(\frac{\partial g}{\partial l}\sigma_{l_p}\right),\qquad
+\left(\frac{\partial g}{\partial r}\sigma_{r_p}\right).
+\]
+\vspace{\baselineskip}
+
+Numerisch ergeben sich die (vorstehenden) Vorfaktoren ungefähr zu den im Originaltext genannten Werten:
+\[
+\frac{\partial g}{\partial t}\sigma_{t} \approx -11.94\,\sigma_{t},
+\quad
+\frac{\partial g}{\partial l}\sigma_{l_p} \approx 14.33\,\sigma_{l_p},
+\quad
+\frac{\partial g}{\partial r}\sigma_{r_p} \approx 0.86\,\sigma_{r_p}.
+\]
+\vspace{\baselineskip}
+
+Die Gesamtunsicherheit berechnet sich zu:
+
+\[
+\sigma_{g} = \sqrt{\left(\frac{\partial g}{\partial t}\sigma_{t}\right)^{2} + \left(\frac{\partial g}{\partial l}\sigma_{l_p}\right)^{2} + \left(\frac{\partial g}{\partial r}\sigma_{r_p}\right)^{2}}
+= 0.0072\ \text{m/s}^2.
+\]
+\vspace{\baselineskip}
+
+Wir erkennen, dass der Beitrag von $\sigma_{r_p}$ wesentlich kleiner ist als die Beiträge von $\sigma_{t}$ und $\sigma_{l_p}$. Insgesamt dominiert der Längenfehler $\sigma_{l_p}$.
+
+\bigskip
+
+Um die kleine Periodendifferenz von \SI{0.086}{\percent} zu berücksichtigen, führen wir einen Korrekturterm ein. Dabei steht \(g'\) für die ideal berechnete Fallbeschleunigung und \(l_p'\) für die ideal bestimmte Position des Pendelkörpers.
+
+\[
+g = \left(\frac{2\pi}{t_{\mathrm{gew},2}}\right)^{2} l_p \Bigl(1 + \tfrac{1}{2}\frac{r_p^{2}}{l_p^{2}}\Bigr),
+\quad
+g' = \left(\frac{2\pi}{t_{\mathrm{gew},1}}\right)^{2} l_p' \Bigl(1 + \tfrac{1}{2}\frac{r_p^{2}}{l_p'^{2}}\Bigr).
+\]
+\vspace{\baselineskip}
+
+Daraus folgt:
+
+\[
+\frac{g'}{g}
+= \left(\frac{t_{\mathrm{gew},2}}{t_{\mathrm{gew},1}}\right)^{2}
+\cdot \frac{l_p'}{l_p}
+\cdot \frac{1 + \tfrac{1}{2}\dfrac{r_p^{2}}{l_p'^{2}}}{1 + \tfrac{1}{2}\dfrac{r_p^{2}}{l_p^{2}}}.
+\]
+
+Da die Abweichung zwischen den Perioden $<0.5\%$ ist, können wir die Näherungen
+\[
+\frac{l_p'}{l_p} \approx 1,\qquad
+\frac{r_p^{2}}{l_p^{2}} \ll 1,\qquad
+\frac{r_p^{2}}{l_p'^{2}} \ll 1
+\]
+verwenden, sodass (unter den genannten Näherungen)
+
+\[
+\frac{g'}{g} \approx \left(\frac{t_{\mathrm{gew},2}}{t_{\mathrm{gew},1}}\right)^{2}
+= 0.9983 \pm 1.07\times 10^{-5}.
+\]
+
+
+\[
+g_{\mathrm{final}} = g \left(\frac{G'}{G}\right)
+= 9.826 \pm 0.0072\ \text{m/s}^2.
+\]
+
+Die Unsicherheit des Quotienten \( \frac{g'}{g} \) ist so gering, dass sie vernachlässigt werden kann. Die dominante Fehlerquelle bleibt somit die Unsicherheit von \( l_g \).
+\bigskip
+
+Zum Vergleich wird der Literaturwert der BKG (DHSN2016) für den Messort (Breite \ang{50.7811}, Länge \ang{6.0496}, Höhe ca. \SI{200}{m}) herangezogen:
+
+\[
+g_{\mathrm{BKG}} = 9.810883\ \text{m/s}^2.
+\]
+
+Die relative Abweichung beträgt:
+
+\[
+\frac{g_{\mathrm{final}}}{g_{\mathrm{BKG}}} - 1 = 0.0016 = 0.16\%.
+\]
+
+In Normabweichungen:
+
+\[
+\frac{g_{\mathrm{final}} - g_{\mathrm{BKG}}}{\sigma_g} = 2.14.
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=.5]{Histogram.png}
+\caption{Vergleich von $g_{\mathrm{final}}$ mit dem Literaturwert}
+\end{figure}
+
+Die Abweichung zwischen dem experimentell ermittelten Wert und dem Referenzwert 
+des BKG beträgt \(2.14\,\sigma\) bzw. \SI{0.16}{\percent}. Dies impliziert, dass 
+die Wahrscheinlichkeit, einen Wert außerhalb des Intervalls 
+\(\pm 2.14\,\sigma\) zu beobachten, bei etwa \SI{3.3}{\percent} liegt. Das Ergebnis 
+befindet sich damit noch innerhalb eines für die erwartbare Präzision des 
+vorliegenden Versuchs angemessenen Bereichs. Dennoch kann eine solche Diskrepanz 
+auf systematische oder zufällige Einflüsse hinweisen, die nach unserer 
+Einschätzung insbesondere auf den Prozess der Längenmessung und dessen 
+Fehlerfortpflanzung zurückgeführt werden können. Vor allem unbeabsichtigte 
+manuelle Fehler während der Datenerfassung sowie Unsicherheiten bei der 
+Peak-Detektion stellen potenzielle Ursachen dar.
+
+
+\end{document}
